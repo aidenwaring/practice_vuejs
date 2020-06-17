@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Intro</title>
+</head>
+<body>
+    <div id="app">
+        <h1 :style="headerStyle">Hello</h1>
+        <p v-if="age >= 18">{{ msg }}</p>
+        <p :title="tooltip">Hover over me!</p>
+        <ul>
+            <li v-for="item in shopping">
+                {{ item }}
+            </li>
+        </ul>
+        <ol>
+            <todo-item v-for="foo in todos" :todo="foo"></todo-item>
+            <!-- <todo-item></todo-item>
+            <todo-item></todo-item> -->
+            <!-- <li :style="todo.done ? 'color:green' : ''" v-for="todo in todos">
+                {{ todo.text }}
+            </li> -->
+        </ol>
+        <input type="text" v-model="msg">
+        <button @click="reverseMessage">Reverse Message!</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: `
+                <li :style="todo.done ? 'color:green' : ''">
+                    {{ todo.text }}
+                </li>
+            `
+        })
+        const app = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue!',
+                tooltip: 'This is a tooltip message!',
+                headerStyle: 'color:red',
+                seen: true,
+                age: 20,
+                shopping: [ "Bread", "Milk", "Tea" ],
+                todos: [
+                    { text: "Vacuum the floor", done: true },
+                    { text: "Make a million dollars", done: false },
+                    { text: "Visit Canada", done: false }
+                ]
+            },
+            methods: {
+                reverseMessage: function() {
+                    this.msg = this.msg.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
